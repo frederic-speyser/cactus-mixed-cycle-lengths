@@ -46,8 +46,8 @@ Eight integer sequences (rooted and unrooted, for Ω = {5,6}, {5,7}, {5,7,9}, {5
 [1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.* Submitted to the Electronic Journal of Combinatorics, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://doi.org/10.5281/zenodo.21513753).
 
 ## Citation
-
-If you use this code, please cite the paper above. A citable archive of this repository will be added here via Zenodo once deposited.
+ 
+A citable archive of this repository is available via Zenodo: [10.5281/zenodo.21854630](https://doi.org/10.5281/zenodo.21854630).
 
 ## Author
 
