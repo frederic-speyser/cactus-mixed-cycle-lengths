@@ -1,13 +1,12 @@
 # Verification code for "Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths"
 
-
 ## Rationale
 
 In [1], I enumerate strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
 
 This repository accompanies the paper that carries it out. For an arbitrary finite Ω, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that this same method is structurally obstructed as soon as an even length is present, and the general asymptotic enumeration law for arbitrary finite Ω, with a closed form for an associated second-order coefficient in the all-odd case.
 
-The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https://doi.org/10.5281/zenodo.21513753)), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti). This paper — the one this repository provides verification code for — has been submitted to the *Journal of Integer Sequences*.
+The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https://doi.org/10.5281/zenodo.21513753)), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti). This paper - the one this repository provides verification code for - is in preparation for submission to the *Journal of Integer Sequences*.
 
 ## Related repositories
 
@@ -17,14 +16,28 @@ The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https:
 
 ## What this repository contains
 
-- **`mgonal_cactus_series_omega.py`** - exact rooted and unrooted enumeration series for strict cactus graphs admitting a finite set Ω of cycle lengths, generalizing `mgonal_cactus_series.py` from [1]: the kernel *K<sub>C</sub>* becomes a sum of one USEQ term per size in Ω. Exact rational arithmetic (Python `Fraction`). This is the script that generated the enumerative data tabulated in the paper and submitted to the OEIS.
+- **`mgonal_cactus_series_omega.py`** - exact rooted and unrooted enumeration series for strict cactus graphs admitting a finite set Ω of cycle lengths, generalizing `mgonal_cactus_series.py` from [1]: the kernel *K<sub>C</sub>* becomes a sum of one USEQ term per size in Ω. Exact rational arithmetic (Python `Fraction`), indexed by vertex count - used to produce Table 1 of the paper (ρ_Ω, τ_Ω, and the exact support characterization of Theorem 3).
+- **`mgonal_cactus_series_omega_blocks.py`** - exact rooted and unrooted enumeration series, indexed by number of blocks (the convention this OEIS family uses), by direct evaluation of the block-indexed functional equation. Computes 100 terms per sequence in well under a minute; the accompanying `bfiles/` directory holds the resulting 100-term data for all eight sequences of the paper.
 - **`critical_point_solver.py`** - high-precision direct solver for the critical pair (ρ_Ω, τ_Ω), by a damped fixed-point iteration with Aitken extrapolation. Implements the closed form of Theorem 5 (Ω all-odd) and the consistency check of Proposition 6 (Ω containing an even length), and the closed-form second-order coefficient of Theorem 8(b).
-- **`reproduce_table1.py`** — driver script: reproduces the paper's Table 1 end to end, combining the two modules above.
-- **`tests/`** — four automated tests (pytest-compatible):
-  - `test_regression_known_values.py` — solver output anchored against values already published in [1] (Theorem 2 and Table 3), covering both parities of the kernel.
+- **`reproduce_table1.py`** - driver script: reproduces the paper's Table 1 end to end, combining the two modules above.
+- **`tests/`** - four automated tests (pytest-compatible):
+  - `test_regression_known_values.py` - solver output anchored against values already published in [1] (Theorem 2 and Table 3), covering both parities of the kernel.
   - `test_cross_consistency.py` - agreement between the exact-series route and the direct numerical solver.
   - `test_theorem_a_untabulated_omega.py` - the paper's support-characterization theorem, verified on Ω not appearing in the published Table 1.
   - `test_oeis_sequences_regression.py` - locks the eight sequences prepared for OEIS submission against silent future regressions.
+
+## Method note: a direct univariate formulation for the block-indexed series
+
+The block-indexed series can be obtained two ways: by tracking vertex count and block count as two
+separate variables and summing out the vertex dimension at the end, or by evaluating the same
+functional equation directly in the block-counting variable alone, since for each fixed number of
+blocks only finitely many vertex counts contribute; the two are the same power series identity,
+just reached by different routes. `mgonal_cactus_series_omega_blocks.py` uses the direct route: it
+is substantially faster, since it never needs to track the vertex dimension at all, which is what
+made the bivariate route expensive at high term counts. Both routes were implemented and
+cross-checked against each other, and against the independently published data of the companion
+exploratory repository for Ω={5,6}, before the direct route became the one used to generate this
+repository's data; see CHANGELOG.md for the record of that comparison.
 
 ## Requirements
 
@@ -39,19 +52,20 @@ python3 -m pytest tests/ -v
 
 ## Data availability
 
-Eight integer sequences (rooted and unrooted, for Ω = {5,6}, {5,7}, {5,7,9}, {5,6,7}) have been computed by `mgonal_cactus_series_omega.py` and prepared for submission to the OEIS; see the paper for the full data and the current submission status.
+Eight integer sequences (rooted and unrooted, for Ω = {5,6}, {5,7}, {5,7,9}, {5,6,7}) have been computed by `mgonal_cactus_series_omega_blocks.py` and prepared for submission to the OEIS, indexed by number of blocks per the convention this family uses. 100 verified terms per sequence are provided in `bfiles/`; see [oeis.org/search?q=speyser](https://oeis.org/search?q=speyser) for current submission status and A-numbers once assigned.
 
 ## References
 
 [1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.* Submitted to the Electronic Journal of Combinatorics, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://doi.org/10.5281/zenodo.21513753).
 
 ## Citation
- 
-A citable archive of this repository is available via Zenodo: [10.5281/zenodo.21854630](https://doi.org/10.5281/zenodo.21854630).
+
+If you use this code, please cite the paper above. A citable archive of this repository is available via Zenodo: [10.5281/zenodo.21854630](https://doi.org/10.5281/zenodo.21854630).
 
 ## Author
 
-Frédéric G. Speyser - Independent Researcher, France - ORCID: [0000-0002-1767-5325](https://orcid.org/0000-0002-1767-5325)
+Frédéric G. Speyser - Independent Researcher, France
+ORCID: [0000-0002-1767-5325](https://orcid.org/0000-0002-1767-5325)
 
 ## License
 
