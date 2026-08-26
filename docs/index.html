@@ -197,6 +197,17 @@
   }
   .caption code { font-family: "IBM Plex Mono", monospace; }
 
+  .fr-note {
+    border-top: 1px solid var(--line);
+    padding: 28px 0 40px;
+  }
+  .fr-note p {
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+    max-width: 640px;
+    font-style: italic;
+  }
+
   /* ---------- table 1 ---------- */
   .table-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
   table.results {
@@ -540,6 +551,18 @@
     </div>
   </section>
 </main>
+
+<footer class="fr-note">
+  <div class="wrap">
+    <p>
+      Note : cette page illustre les résultats numériques de l'article
+      « Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a
+      Finite Set of Cycle Lengths » — quatre exemples de Table 1, un graphique de taux
+      de croissance, et les huit suites préparées pour l'OEIS. Le code de vérification
+      complet se trouve dans le dépôt associé.
+    </p>
+  </div>
+</footer>
 
 <script>
 (function () {
