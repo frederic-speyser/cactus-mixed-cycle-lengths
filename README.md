@@ -148,7 +148,7 @@ What makes them new:
 
 [1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.* Submitted to the Electronic Journal of Combinatorics, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753)
 
-[2] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.* Working paper, in preparation for submission to the Journal of Integer Sequences, 2026.
+[2] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.* Working paper, in preparation for submission to the Journal of Integer Sequences, 2026. DOI  [10.5281/zenodo.22118023](https://zenodo.org/records/22118023)
 
 ## Citation
 
