@@ -1,6 +1,6 @@
 # Verification code for "Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths"
 
-**→ [See the companion page](docs/index.html)** - the four Table 1 examples, a growth-rate chart, and the eight sequences prepared for OEIS, illustrated.
+**→ [See the companion page](https://frederic-speyser.github.io/cactus-mixed-cycle-lengths/)** - the four Table 1 examples, a growth-rate chart, and the eight sequences prepared for OEIS, illustrated.
 
 ## Rationale
 
@@ -93,7 +93,7 @@ blocks only finitely many vertex counts contribute; the 2 are the same power ser
 just reached by different routes. `mgonal_cactus_series_omega_blocks.py` uses the direct route: it
 is substantially faster, since it never needs to track the vertex dimension at all, which is what
 made the bivariate route expensive at high term counts. Both routes were implemented and
-cross-checked against each other, and against the independently published data of the companion
+cross-checked against each other, and against the independently published data of the n
 exploratory repository for Ω={5,6}, before the direct route became the one used to generate this
 repository's data.
 
@@ -133,7 +133,7 @@ gp -q pari/verify_pari_omega_extended.gp < /dev/null
 
 ## Data availability and OEIS submission
 
-There are 4 mixed sets Ω covered here — {5,6}, {5,7}, {5,7,9}, {5,6,7}. For each one, Table 1 of paper [2] gives a two-number summary of its growth rate (ρ_Ω, τ_Ω, and whether a closed form exists) - 1 row per Ω, 4 rows in total. Separately, for each of those same four Ω, the *full* rooted and unrooted term-by-term counts (1, 2, 13, 125, 1393, ...) are computed and prepared for OEIS - 2sequences per Ω, 8 sequences in total. The four-row summary and the eight full sequences describe the same 4 cases at two different levels of detail, not 8 different cases; the [companion page](docs/index.html) keeps them in two separate tables for that reason, rather than mixing a growth-rate summary with raw term data in one table.
+There are 4 mixed sets Ω covered here — {5,6}, {5,7}, {5,7,9}, {5,6,7}. For each one, Table 1 of paper [2] gives a two-number summary of its growth rate (ρ_Ω, τ_Ω, and whether a closed form exists) - 1 row per Ω, 4 rows in total. Separately, for each of those same four Ω, the *full* rooted and unrooted term-by-term counts (1, 2, 13, 125, 1393, ...) are computed and prepared for OEIS - 2sequences per Ω, 8 sequences in total. The four-row summary and the eight full sequences describe the same 4 cases at two different levels of detail, not 8 different cases; the [Companion page](https://frederic-speyser.github.io/cactus-mixed-cycle-lengths/) keeps them in two separate tables for that reason, rather than mixing a growth-rate summary with raw term data in one table.
 
 All 8 sequences were computed by `mgonal_cactus_series_omega_blocks.py`, indexed by number of blocks per the convention this OEIS family already uses. 100 verified terms per sequence are provided in `bfiles/`. See [oeis.org/search?q=speyser](https://oeis.org/search?q=speyser) for current submission status and A-numbers once assigned.
 
