@@ -264,9 +264,9 @@
   #growthChart { display: block; width: 100%; height: auto; min-width: 560px; }
   .chart-gridline { stroke: var(--line); stroke-width: 1; }
   .chart-axis-text { fill: var(--ink-faint); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
-  .chart-line { fill: none; stroke-width: 2; }
+  .chart-line { fill: none; stroke-width: 2.5; }
   .chart-endlabel { font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 500; }
-  .chart-hover-dot { fill: var(--paper-raised); stroke-width: 2; r: 4.5; }
+  .chart-hover-dot { fill: var(--paper-raised); stroke-width: 2.5; r: 5; }
   .crosshair { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; pointer-events: none; }
 
   .legend-row {
@@ -361,6 +361,8 @@
     white-space: nowrap;
   }
   .draft-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-block); flex: none; }
+  a.draft-pill { text-decoration: none; transition: border-color 0.15s, color 0.15s; }
+  a.draft-pill:hover, a.draft-pill:focus-visible { border-color: var(--accent-solve); color: var(--ink); }
 
   @media (max-width: 640px) {
     header.hero { padding: 52px 0 40px; }
@@ -555,7 +557,7 @@
 <footer class="fr-note">
   <div class="wrap">
     <p>
-      Note : cette page illustre les résultats numériques de l'article
+      Note (français) : cette page illustre les résultats numériques de l'article
       « Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a
       Finite Set of Cycle Lengths » — quatre exemples de Table 1, un graphique de taux
       de croissance, et les huit suites préparées pour l'OEIS. Le code de vérification
@@ -723,12 +725,12 @@
   var seqHtml = "";
   order.forEach(function (key) {
     ["rooted", "unrooted"].forEach(function (kind) {
-      var full = (kind === "rooted" ? rooted[key] : unrooted[key]);
+      var full = (kind === "rooted" ? [1].concat(rooted[key]) : unrooted[key]);
       var short = full.slice(0, 6).map(function (v) { return v.toLocaleString("en-US"); }).join(", ") + ", …";
       var long = full.map(function (v) { return v.toLocaleString("en-US"); }).join(", ");
       seqHtml += "<tr><td class=\"omega\">Ω = {" + key + "}</td><td class=\"rootedness\">" + kind + "</td>" +
         "<td class=\"terms terms-toggle\" data-short=\"" + short.replace(/"/g, "&quot;") + "\" data-long=\"" + long.replace(/"/g, "&quot;") + "\" data-expanded=\"0\" title=\"Click to show all 25 terms\">" + short + "</td>" +
-        "<td><span class=\"draft-pill\"><span class=\"dot\"></span>submission in progress</span></td></tr>";
+        "<td><a class=\"draft-pill\" href=\"https://oeis.org/search?q=speyser\" target=\"_blank\" rel=\"noopener\" title=\"See current OEIS submission status for Speyser\"><span class=\"dot\"></span>submission in progress</a></td></tr>";
     });
   });
   seqBody.innerHTML = seqHtml;
