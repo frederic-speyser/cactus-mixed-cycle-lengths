@@ -20,7 +20,7 @@ covered:
     {5,9,13}     odd,   |Omega|=3   (untabulated; also used by
                                       test_theorem_a_untabulated_omega.py
                                       for Theorem 3 alone)
-    {5,6,8}      mixed, |Omega|=3   (untabulated; one even length)
+    {5,7,8}      mixed, |Omega|=3   (untabulated; one even length)
     {5,7,9,11}   odd,   |Omega|=4   (untabulated; Table 1 and the six
                                       Omega above never go past |Omega|=3)
     {6,8,9}      mixed, |Omega|=3   (untabulated; TWO even lengths at
@@ -86,7 +86,7 @@ UNTABULATED_OMEGA = [
     (5, 8),
     (7, 9, 11),
     (5, 9, 13),
-    (5, 6, 8),
+    (5, 7, 8),
     (5, 7, 9, 11),
     (6, 8, 9),
 ]
