@@ -1,0 +1,32 @@
+name: Tests
+
+# Runs the pytest suite automatically on every push and pull request, so
+# the "14 tests, all pass" claim in CHANGELOG.md / README.md stays
+# continuously verified rather than being a one-time, unverifiable
+# assertion. See README.md, "Requirements", for the package versions
+# this repository is developed against.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:  # lets you also trigger a run by hand from the GitHub Actions tab
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mpmath sympy networkx pytest
+
+      - name: Run the test suite
+        run: python -m pytest tests/ -v
