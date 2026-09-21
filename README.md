@@ -1,14 +1,16 @@
 # Verification code for "Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths"
 
-**→ [See the companion page](https://frederic-speyser.github.io/cactus-mixed-cycle-lengths/)** - the four Table 1 examples, a growth-rate chart, and the eight sequences prepared for OEIS, illustrated.
+[![Tests](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml/badge.svg)](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml)
+
+**→ [See the companion page](docs/index.html)** — the four Table 1 examples, a growth-rate chart, and the eight sequences prepared for OEIS, illustrated.
 
 ## Rationale
 
-In [1], I enumerate strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
+In [1], F. G. Speyser enumerates strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
 
 This repository accompanies the paper that carries it out [2]. For an arbitrary finite Ω, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that this same method is structurally obstructed as soon as an even length is present, and the general asymptotic enumeration law for arbitrary finite Ω, with a closed form for an associated second-order coefficient in the all-odd case.
 
-The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753)), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti). Paper [2], titled "Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths," is in preparation for submission to the Journal of Integer Sequences. A working-paper version and the preprint, presenting the same results, will be placed in References.
+The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753)), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti). Paper [2] - the one this repository provides verification code for - is in preparation for submission to the *Journal of Integer Sequences*; a working-paper version, presenting the same results, will be deposited on Zenodo (see References).
 
 ## Related repositories
 
@@ -19,14 +21,14 @@ The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https:
 ## Repository layout
 
 ```
-├── python/               the main solvers, plus 5 independent cross-check scripts
-├── pari/                 one more independent cross-check, in PARI/GP rather than Python
+├── python/               the main solvers, plus seven independent cross-check scripts
+├── pari/                 two more independent cross-checks, in PARI/GP rather than Python
 ├── tests/                automated regression tests (pytest)
-├── bfiles/               100-term OEIS b-files for the 8 sequences below
-├── docs/                 a companion illustrative page (index.html)
+├── bfiles/               100-term OEIS b-files for the eight sequences below
+├── docs/                 a companion illustrative page (index.html), for GitHub Pages
 ├── CHANGELOG.md
 ├── LICENSE
-└── README.md             (this file / ce fichier)
+└── README.md             (this file)
 ```
 
 ## Main pipeline (`python/`)
@@ -34,15 +36,21 @@ The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https:
 | File | What it computes |
 |---|---|
 | `mgonal_cactus_series_omega.py` | Exact rooted and unrooted enumeration series, indexed by **vertex count**, generalizing `mgonal_cactus_series.py` from [1]: the kernel *K<sub>C</sub>* becomes a sum of one term per size in Ω. Exact rational arithmetic (Python `Fraction`). Used to produce Table 1 of paper [2] (ρ_Ω, τ_Ω, and the exact support characterization of Theorem 3). |
-| `mgonal_cactus_series_omega_blocks.py` | Exact rooted and unrooted enumeration series, indexed by **number of blocks** (the convention this OEIS family already uses). Evaluates the block-indexed functional equation directly, rather than tracking vertex count and block count separately - computes 100 terms per sequence in about a minute (up to ~70s for the heaviest Ω tested, Ω={5,7,9}). This is what generated the data in `bfiles/`. |
+| `mgonal_cactus_series_omega_blocks.py` | Exact rooted and unrooted enumeration series, indexed by **number of blocks** (the convention this OEIS family already uses). Evaluates the block-indexed functional equation directly, rather than tracking vertex count and block count separately — computes 100 terms per sequence in about a minute (up to ~70s for the heaviest Ω tested, Ω={5,7,9}). This is what generated the data in `bfiles/` and the OEIS submission drafts. See the *Method note* below for why a direct, univariate route was worth building. |
 | `critical_point_solver.py` | High-precision direct solver for the critical pair (ρ_Ω, τ_Ω), by a damped fixed-point iteration with Aitken extrapolation. Implements the closed form of Theorem 5 (Ω all-odd) and the consistency check of Proposition 6 (Ω containing an even length). |
 | `reproduce_table1.py` | Driver script: reproduces Table 1 of paper [2] end to end, combining the two solvers above. |
 
+### Method note: a direct univariate formulation for the block-indexed series
+
+The block-indexed series can be obtained two ways: by tracking vertex count and block count as two separate variables and summing out the vertex dimension at the end, or by evaluating the same functional equation directly in the block-counting variable alone, since for each fixed number of blocks only finitely many vertex counts contribute; the two are the same power series identity, just reached by different routes. `mgonal_cactus_series_omega_blocks.py` uses the direct route: it is substantially faster, since it never needs to track the vertex dimension at all, which is what made the bivariate route expensive at high term counts. Both routes were implemented and cross-checked against each other, and against the independently published data of the companion exploratory repository for Ω={5,6}, before the direct route became the one used to generate this repository's data; see `CHANGELOG.md` for the record of that comparison and for the full history of this repository's reorganization.
+
 ## Independent cross-checks (`python/` and `pari/`)
 
-Each of these re-derives a piece of paper [2]'s results by a genuinely different route - different arithmetic, a different construction, or a different language entirely - so that agreement with the main pipeline is evidence from outside that pipeline, not a restatement of it. The four Ω printed in Table 1 of the paper ({5,6}, {5,7}, {5,7,9}, {5,6,7}) are illustrative examples, not the full extent of what is checked: the files marked *(extended)* below run the same kind of check on eight further Ω that do not appear in Table 1, chosen to cover the same qualitative combinations (both sizes |Ω|=2, |Ω|=3 and |Ω|=4, both the all-odd and mixed-parity regimes, and both one and two even cycle lengths present at once)..
+Each of these re-derives a piece of paper [2]'s results by a genuinely different route — different arithmetic, a different construction, or a different language entirely — so that agreement with the main pipeline is evidence from outside that pipeline, not a restatement of it.
 
-**All 12 Ω are gathered in the table below:**
+### Coverage across twelve Ω
+
+The four Ω printed in Table 1 of the paper ({5,6}, {5,7}, {5,7,9}, {5,6,7}) are illustrative examples, not the full extent of what is checked: the files marked *(extended)* below run the same kind of check on eight further Ω that do not appear in Table 1, chosen to cover the same qualitative combinations (both sizes |Ω|=2, |Ω|=3 and |Ω|=4, both the all-odd and mixed-parity regimes, and both one and two even cycle lengths present at once). All twelve are gathered here, so the full coverage can be checked at a glance:
 
 | Ω | \|Ω\| | parity | source | critical-value route (Thm. 5 / Prop. 6) |
 |---|---|---|---|---|
@@ -59,7 +67,9 @@ Each of these re-derives a piece of paper [2]'s results by a genuinely different
 | {5,7,9,11} | 4 | odd | extended | Thm. 5 |
 | {6,8,9} | 3 | mixed (two even lengths) | extended | Prop. 6 |
 
-Every Ω here is checked by at least 2 independent implementations (Theorem 3's support characterization plus the two series solvers); the 8 *extended* rows additionally get the PARI/GP cross-check, and the numeric critical-pair consistency check against Theorem 5 or Proposition 6. This is not, and cannot be, a test of "all" finite Ω - there are infinitely many - but between the sizes, parities, and (for the mixed cases) the number of even lengths present, every qualitative combination the theorems distinguish is now exercised at least once.
+Every Ω here is checked by at least two independent implementations (Theorem 3's support characterization plus the two series solvers); the eight *extended* rows additionally get the PARI/GP cross-check, and the numeric critical-pair consistency check against Theorem 5 or Proposition 6. This is not, and cannot be, a test of "all" finite Ω — there are infinitely many — but between the sizes, parities, and (for the mixed cases) the number of even lengths present, every qualitative combination the theorems distinguish is now exercised at least once.
+
+### What each cross-check verifies
 
 | File | Independent route |
 |---|---|
@@ -80,22 +90,9 @@ Every Ω here is checked by at least 2 independent implementations (Theorem 3's 
 - `test_theorem_a_untabulated_omega.py` - paper [2]'s support-characterization theorem (Theorem 3), verified on Ω not appearing in its published Table 1.
 - `test_untabulated_omega_extended.py` - the two fast checks of `verify_extended_omega.py` (Theorem 3, cross-implementation agreement), run automatically for eight Ω not appearing in Table 1.
 - `test_random_omega_property.py` - Theorem 3's support characterization, on 30 finite sets Ω drawn at random (fixed seed, |Ω| ∈ {2,3,4}) rather than chosen by hand, to guard against unintentional selection bias in every other Ω tested in this repository.
-- `test_boundary_single_length_omega.py` - the |Ω|=1 boundary case: checks that the general block-indexed series, applied to a singleton Ω, reproduces series independently published and verified on the OEIS (A398033, A397250, A397210) - not just the critical pair already anchored by `test_regression_known_values.py`, but the full series.
+- `test_boundary_single_length_omega.py` - the |Ω|=1 boundary case: checks that the general block-indexed series, applied to a singleton Ω, reproduces series independently published and verified on the OEIS (A398033, A397250, A397210) — not just the critical pair already anchored by `test_regression_known_values.py`, but the full series.
 - `test_vertex_indexed_regression.py` - locks the vertex-indexed engine (`mgonal_cactus_series_omega.py`) against silent regressions.
 - `test_oeis_data_regression.py` - locks the eight sequences prepared for OEIS submission (block-indexed) against silent regressions.
-
-## Method note: a direct univariate formulation for the block-indexed series
-
-The block-indexed series can be obtained 2 ways: by tracking vertex count and block count as 2
-separate variables and summing out the vertex dimension at the end, or by evaluating the same
-functional equation directly in the block-counting variable alone, since for each fixed number of
-blocks only finitely many vertex counts contribute; the 2 are the same power series identity,
-just reached by different routes. `mgonal_cactus_series_omega_blocks.py` uses the direct route: it
-is substantially faster, since it never needs to track the vertex dimension at all, which is what
-made the bivariate route expensive at high term counts. Both routes were implemented and
-cross-checked against each other, and against the independently published data of the n
-exploratory repository for Ω={5,6}, before the direct route became the one used to generate this
-repository's data.
 
 ## Requirements
 
@@ -131,33 +128,44 @@ python3 python/split_tree_omega_extended.py
 gp -q pari/verify_pari_omega_extended.gp < /dev/null
 ```
 
-## Data availability and OEIS submission
+## Data availability
 
-There are 4 mixed sets Ω covered here — {5,6}, {5,7}, {5,7,9}, {5,6,7}. For each one, Table 1 of paper [2] gives a two-number summary of its growth rate (ρ_Ω, τ_Ω, and whether a closed form exists) - 1 row per Ω, 4 rows in total. Separately, for each of those same four Ω, the *full* rooted and unrooted term-by-term counts (1, 2, 13, 125, 1393, ...) are computed and prepared for OEIS - 2sequences per Ω, 8 sequences in total. The four-row summary and the eight full sequences describe the same 4 cases at two different levels of detail, not 8 different cases; the [Companion page](https://frederic-speyser.github.io/cactus-mixed-cycle-lengths/) keeps them in two separate tables for that reason, rather than mixing a growth-rate summary with raw term data in one table.
+There are four mixed sets Ω covered here — {5,6}, {5,7}, {5,7,9}, {5,6,7}. For each one, Table 1 of paper [2] gives a two-number summary of its growth rate (ρ_Ω, τ_Ω, and whether a closed form exists) — one row per Ω, four rows in total. Separately, for each of those same four Ω, the *full* rooted and unrooted term-by-term counts (1, 2, 13, 125, 1393, ...) are computed and prepared for OEIS — two sequences per Ω, eight sequences in total. The four-row summary and the eight full sequences describe the same four cases at two different levels of detail, not eight different cases; the [companion page](docs/index.html) keeps them in two separate tables for that reason, rather than mixing a growth-rate summary with raw term data in one table.
 
-All 8 sequences were computed by `mgonal_cactus_series_omega_blocks.py`, indexed by number of blocks per the convention this OEIS family already uses. 100 verified terms per sequence are provided in `bfiles/`. See [oeis.org/search?q=speyser](https://oeis.org/search?q=speyser) for current submission status and A-numbers once assigned.
+All eight sequences were computed by `mgonal_cactus_series_omega_blocks.py`, indexed by number of blocks per the convention this OEIS family already uses. 100 verified terms per sequence are provided in `bfiles/`.
 
-What makes them new:
+All eight have been reviewed and approved on OEIS, each carrying the data, a b-file, and a reference to this repository and to paper [2]:
 
-- **The mixture itself.** Every non-plane-cactus sequence in this family submitted so far - A332648/A332649 (general arrays, by Andrew Howroyd) and the single-length columns I submitted separately for paper [1] - fixes 1 cycle length *m* throughout. These 8 are, as far as I can tell, the first tabulated counts for a *mix* of at least two different cycle lengths at once, which is exactly what paper [2] adds and the earlier papers did not attempt.
+| Ω | rooted | unrooted |
+|---|---|---|
+| {5,6} | [A399365](https://oeis.org/A399365) | [A399366](https://oeis.org/A399366) |
+| {5,7} | [A399555](https://oeis.org/A399555) | [A399556](https://oeis.org/A399556) |
+| {5,7,9} | [A397121](https://oeis.org/A397121) | [A399713](https://oeis.org/A399713) |
+| {5,6,7} | [A399759](https://oeis.org/A399759) | [A399876](https://oeis.org/A399876) |
+
+### Why these sequences are new
+
+- **The mixture itself.** Every non-plane-cactus sequence in this family submitted so far — A332648/A332649 (general arrays, by Andrew Howroyd) and the single-length columns Speyser submitted separately for paper [1] — fixes one cycle length *m* throughout. These eight are, as far as we can tell, the first tabulated counts for a *mix* of at least two different cycle lengths at once, which is exactly what paper [2] adds and the earlier papers did not attempt.
 - **A closed form where there wasn't one before.** For the all-odd cases (Ω = {5,7} and Ω = {5,7,9}), the growth rate is given by an exact closed form (Theorem 5 of [2]), not just a numerically located constant.
-- **An exact description of where the sequence is nonzero.** For the vertex-indexed version of each sequence, the full set of nonzero positions is characterized (Theorem 3 of [2]) via the numerical semigroup generated by {m − 1 : m ∈ Ω} - reducing, for two generators, to the classical Frobenius coin problem.
-
+- **An exact description of where the sequence is nonzero.** For the vertex-indexed version of each sequence, the full set of nonzero positions is characterized (Theorem 3 of [2]) via the numerical semigroup generated by {m − 1 : m ∈ Ω} — reducing, for two generators, to the classical Frobenius coin problem.
 
 ## References
 
-[1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.* Submitted to the Electronic Journal of Combinatorics, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753)
+[1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.*, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753).
 
-[2] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.* Working paper, in preparation for submission to the Journal of Integer Sequences, 2026. DOI  [10.5281/zenodo.22118023](https://zenodo.org/records/22118023)
+[2] Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.*, 2026. Preprint: Zenodo. DOI: xxx.
 
 ## Citation
 
-If you use this code, please cite the papers above. A citable archive of this repository is available via Zenodo: DOI [10.5281/zenodo.22117807](https://zenodo.org/records/22117807)
+If you use this code, please cite the papers above. A citable archive of this repository is available via Zenodo: DOI: xxxxx.
 
-## Author
+## Authors
 
-Frédéric G. Speyser - Independent Researcher, France
+Frédéric G. Speyser - Independent Researcher, Association Sciences & Coopération, France
 ORCID: [0000-0002-1767-5325](https://orcid.org/0000-0002-1767-5325)
+
+Kseniya Vyatkina - Independent Researcher, Association Sciences & Coopération, France
+ORCID: [0009-0001-8849-6332](https://orcid.org/0009-0001-8849-6332)
 
 ## License
 
