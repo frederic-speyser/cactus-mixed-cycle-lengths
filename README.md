@@ -2,15 +2,13 @@
 
 [![Tests](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml/badge.svg)](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml)
 
-**→ [See the companion page](docs/index.html)** — the four Table 1 examples, a growth-rate chart, and the eight sequences prepared for OEIS, illustrated.
+**→ [See the companion page](docs/index.html)** for an illustrated overview: the four Table 1 examples, a growth-rate chart, and the eight sequences.
 
 ## Rationale
 
-In [1], F. G. Speyser enumerates strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
+In *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.*, 2026 [1] (DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti)), F. G. Speyser enumerates strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
 
-This repository accompanies the paper that carries it out [2]. For an arbitrary finite Ω, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that this same method is structurally obstructed as soon as an even length is present, and the general asymptotic enumeration law for arbitrary finite Ω, with a closed form for an associated second-order coefficient in the all-odd case.
-
-The preprint of [1] is available on Zenodo (DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753)), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti). Paper [2] - the one this repository provides verification code for - is in preparation for submission to the *Journal of Integer Sequences*; a working-paper version, presenting the same results, will be deposited on Zenodo (see References).
+This repository accompanies the paper: Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths*, 2026 [2], DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875493). For an arbitrary finite Ω, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that this same method is structurally obstructed as soon as an even length is present, and the general asymptotic enumeration law for arbitrary finite Ω, with a closed form for an associated second-order coefficient in the all-odd case.
 
 ## Related repositories
 
@@ -63,11 +61,11 @@ The four Ω printed in Table 1 of the paper ({5,6}, {5,7}, {5,7,9}, {5,6,7}) are
 | {5,8} | 2 | mixed | extended | Prop. 6 |
 | {7,9,11} | 3 | odd | extended | Thm. 5 |
 | {5,9,13} | 3 | odd | extended | Thm. 5 |
-| {5,6,8} | 3 | mixed (one even length) | extended | Prop. 6 |
+| {5,7,8} | 3 | mixed (one even length) | extended | Prop. 6 |
 | {5,7,9,11} | 4 | odd | extended | Thm. 5 |
 | {6,8,9} | 3 | mixed (two even lengths) | extended | Prop. 6 |
 
-Every Ω here is checked by at least two independent implementations (Theorem 3's support characterization plus the two series solvers); the eight *extended* rows additionally get the PARI/GP cross-check, and the numeric critical-pair consistency check against Theorem 5 or Proposition 6. This is not, and cannot be, a test of "all" finite Ω — there are infinitely many — but between the sizes, parities, and (for the mixed cases) the number of even lengths present, every qualitative combination the theorems distinguish is now exercised at least once.
+Every Ω here is checked by at least two independent implementations (Theorem 3's support characterization plus the two series solvers); the eight *extended* rows additionally get the PARI/GP cross-check, and the numeric critical-pair consistency check against Theorem 5 or Proposition 6. This is not, and cannot be, a test of "all" finite Ω — there are infinitely many — but between the sizes, parities, and (for the mixed cases) the number of even lengths present, every qualitative combination the theorems distinguish is now exercised at least once: {5,6,7} (Table 1) is the |Ω|=3 example with exactly one even length, and {6,8,9} (extended) is the |Ω|=3 example with two.
 
 ### What each cross-check verifies
 
@@ -84,6 +82,8 @@ Every Ω here is checked by at least two independent implementations (Theorem 3'
 | `verify_pari_omega_extended.gp` *(extended)* | The same eight Ω through PARI/GP, cross-checked against `verify_extended_omega.py`'s output. |
 
 ## Tests (`tests/`)
+
+**→ Run the whole suite with `python3 -m pytest tests/ -v`** (see Usage) — it locks in the results above against silent regressions.
 
 - `test_regression_known_values.py` - solver output anchored against values already published in [1] (Theorem 2 and Table 3), covering both parities of the kernel.
 - `test_cross_consistency.py` - agreement between the exact-series route and the direct numerical solver.
@@ -153,11 +153,11 @@ All eight have been reviewed and approved on OEIS, each carrying the data, a b-f
 
 [1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition.*, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753).
 
-[2] Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.*, 2026. Preprint: Zenodo. DOI: xxx.
+[2] Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths.*, 2026. Preprint: Zenodo. DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875493).
 
 ## Citation
 
-If you use this code, please cite the papers above. A citable archive of this repository is available via Zenodo: DOI: xxxxx.
+If you use this code, please cite it via its citable archive on Zenodo: DOI: [10.5281/zenodo.21854629](https://doi.org/10.5281/zenodo.21854629) (this DOI always resolves to the latest archived version of the code).
 
 ## Authors
 
