@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml/badge.svg)](https://github.com/frederic-speyser/cactus-mixed-cycle-lengths/actions/workflows/tests.yml)
 
-**→ [See the companion page](docs/index.html)** for an illustrated overview: the four Table 1 examples, a growth-rate chart, and the eight sequences.
+**→ [See the companion page](https://frederic-speyser.github.io/cactus-mixed-cycle-lengths/)** for an illustrated overview: the four Table 1 examples, a growth-rate chart, and the eight sequences.
 
 ## Rationale
 
