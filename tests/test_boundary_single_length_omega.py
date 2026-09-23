@@ -39,7 +39,8 @@ Reference:
       preparation for submission to the Journal of Integer Sequences,
       2026).
 
-Author: Frederic G. Speyser
+Authors: Frederic G. Speyser & Kseniya Vyatkina
+Copyright (c) 2026 Frederic G. Speyser & Kseniya Vyatkina. All rights reserved.
 Run: python3 -m pytest tests/test_boundary_single_length_omega.py -v
 """
 import sys
