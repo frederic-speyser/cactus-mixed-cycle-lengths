@@ -35,7 +35,8 @@ Reference: Fr. G. Speyser, "Enumeration and Asymptotic Analysis of Strict
 Non-Plane m-Gonal Cactus Graphs via Split-Decomposition" [1], Sections
 5.1-5.3.
 
-Author: Frederic G. Speyser
+Authors: Frederic G. Speyser & Kseniya Vyatkina
+Copyright (c) 2026 Frederic G. Speyser & Kseniya Vyatkina. All rights reserved.
 Run: gp -q verify_pari_omega.gp < /dev/null
 */
 
