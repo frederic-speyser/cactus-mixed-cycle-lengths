@@ -10,7 +10,7 @@ This repository reproduces all entries of Table 1 of the accompanying paper, and
 
 In *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition*, 2026 [1] (DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753), and its accompanying code on GitHub: [non-plane-mgonal-cacti](https://github.com/frederic-speyser/non-plane-mgonal-cacti)), F. G. Speyser enumerates strict non-plane *m*-gonal cactus graphs for a single fixed cycle length *m* ≥ 5. Its concluding remarks note that the method extends "without difficulty" to a finite mixed set Ω of admissible cycle lengths, but this extension was never carried out there, for any Ω, numerically or analytically.
 
-This repository accompanies the paper: Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths*, 2026 [2], DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875493). For a finite, nonempty set Ω of cycle lengths ≥ 5, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that the elimination argument giving this closed form does not extend to sets containing an even length, and the general asymptotic form of the counting sequence for arbitrary finite Ω, including an explicit second-derivative contribution entering the leading asymptotic amplitude, in closed form in the all-odd case.
+This repository accompanies the paper: Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths*, 2026 [2], DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875492). For a finite, nonempty set Ω of cycle lengths ≥ 5, the paper gives an exact characterization of which vertex counts occur (reducing, for two admissible lengths, to the classical Frobenius coin problem), a closed-form critical value when every length in Ω is odd, a proof that the elimination argument giving this closed form does not extend to sets containing an even length, and the general asymptotic form of the counting sequence for arbitrary finite Ω, including an explicit second-derivative contribution entering the leading asymptotic amplitude, in closed form in the all-odd case.
 
 ## Related repositories
 
@@ -193,7 +193,7 @@ All eight have been reviewed and approved on OEIS, each carrying the data, a b-f
 
 [1] Speyser, F. G. *Enumeration and Asymptotic Analysis of Strict Non-Plane m-Gonal Cactus Graphs via Split-Decomposition*, 2026. Preprint: DOI [10.5281/zenodo.21513753](https://zenodo.org/records/21513753).
 
-[2] Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths*, 2026. Preprint: Zenodo. DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875493).
+[2] Speyser, F. G. & Vyatkina, K. *Enumeration and Asymptotic Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths*, 2026. Preprint: Zenodo. DOI: [10.5281/zenodo.22875493](https://doi.org/10.5281/zenodo.22875492).
 
 ## Citation
 
