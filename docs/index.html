@@ -241,8 +241,37 @@
   }
   .polygon-item .plabel b { color: var(--ink); font-weight: 500; }
 
-  .hero-links {
+  .article-feature {
     margin-top: 40px;
+    display: block;
+    text-decoration: none;
+    background: var(--accent-solve-bg);
+    border: 1.5px solid var(--accent-solve);
+    border-radius: 10px;
+    padding: 16px 20px;
+    max-width: 620px;
+  }
+  .article-feature:hover { box-shadow: 0 0 0 1px var(--accent-solve); }
+  .article-feature-label {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-solve);
+    margin-bottom: 7px;
+  }
+  .article-feature-title {
+    display: block;
+    font-size: 1.04rem;
+    font-weight: 600;
+    line-height: 1.42;
+    color: var(--ink);
+  }
+  .article-feature:hover .article-feature-title { color: var(--accent-solve); }
+
+  .hero-links {
+    margin-top: 14px;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -724,9 +753,13 @@
       </div>
     </div>
 
+    <a class="article-feature" href="https://doi.org/10.5281/zenodo.22875492">
+      <span class="article-feature-label">↳ Full paper (Zenodo preprint)</span>
+      <span class="article-feature-title">Enumeration and Asymptotic Analysis of Unlabelled Vertex-Rooted Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths</span>
+    </a>
+
     <div class="hero-links">
       <a href="https://github.com/frederic-speyser/cactus-mixed-cycle-lengths">↳ Repository</a>
-      <a href="https://doi.org/10.5281/zenodo.22875492">↳ This article (Zenodo preprint)</a>
       <a href="https://zenodo.org/records/21513753">↳ Companion single-length article (Zenodo)</a>
     </div>
 
@@ -1020,9 +1053,13 @@
       </div>
     </div>
 
+    <a class="article-feature" href="https://doi.org/10.5281/zenodo.22875492">
+      <span class="article-feature-label">↳ Article complet (préprint Zenodo)</span>
+      <span class="article-feature-title">Enumeration and Asymptotic Analysis of Unlabelled Vertex-Rooted Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths</span>
+    </a>
+
     <div class="hero-links">
       <a href="https://github.com/frederic-speyser/cactus-mixed-cycle-lengths">↳ Dépôt de code</a>
-      <a href="https://doi.org/10.5281/zenodo.22875492">↳ Cet article (préprint Zenodo)</a>
       <a href="https://zenodo.org/records/21513753">↳ Article compagnon, à longueur unique (Zenodo)</a>
     </div>
 
@@ -2156,8 +2193,12 @@
         résultats complets et leurs démonstrations sont présentés dans les
         publications scientifiques.
       </p>
+      <a class="article-feature" href="https://doi.org/10.5281/zenodo.22875492">
+        <span class="article-feature-label">↳ Préprint de l'étude (Zenodo)</span>
+        <span class="article-feature-title">Enumeration and Asymptotic Analysis of Unlabelled Vertex-Rooted Strict Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths</span>
+      </a>
+
       <div class="hero-links">
-        <a href="https://doi.org/10.5281/zenodo.22875492">↳ Préprint de l'étude (Zenodo)</a>
         <a href="https://github.com/frederic-speyser/cactus-mixed-cycle-lengths">↳ Dépôt de code, données et scripts de reproduction</a>
         <a href="https://zenodo.org/records/21513753">↳ Article compagnon, à longueur unique (Zenodo)</a>
       </div>
