@@ -26,7 +26,8 @@ Reference: F. G. Speyser, "Enumeration and Asymptotic Analysis of Strict
 Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths" (in preparation
 for submission to the Journal of Integer Sequences, 2026).
 
-Author: Frederic G. Speyser
+Authors: Frederic G. Speyser & Kseniya Vyatkina
+Copyright (c) 2026 Frederic G. Speyser & Kseniya Vyatkina. All rights reserved.
 Run: python3 -m pytest test_oeis_data_regression.py -v
 """
 import sys
