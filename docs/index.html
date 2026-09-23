@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cactus Mixed Cycle Lengths</title>
 <meta name="description" content="Sequences, growth rates, and worked examples for strict non-plane cactus graphs over a finite set of cycle lengths.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -348,6 +351,60 @@
   .chart-tooltip .tt-swatch { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .chart-wrap-relative { position: relative; }
 
+  /* ---------- Omega selector for the multi-curve convergence check ---------- */
+  .omega-select { margin-top: 22px; }
+  .omega-select-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .omega-btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .omega-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.86rem;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--paper-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
+  }
+  .omega-btn .omega-btn-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .omega-btn:hover { border-color: var(--ink-faint); }
+  .omega-btn.active { color: var(--ink); background: var(--paper); border-color: currentColor; font-weight: 600; }
+
+  /* ---------- formal statement box (KaTeX) ---------- */
+  .formal-box {
+    margin-top: 18px;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-raised);
+  }
+  .formal-box .formal-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .formal-box .katex-display { margin: 0.6em 0; }
+  .formal-box p { margin: 0.5em 0; }
+  .formal-intro { margin-top: 22px; }
+  .formal-intro h3 {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
   details.rawdata { margin-top: 20px; }
   details.rawdata summary {
     cursor: pointer;
@@ -586,9 +643,11 @@
     <h1 class="title">Counting cacti built<br>from <em>more than one</em> cycle length</h1>
     <p class="thesis">
       A companion page to the article <em>"Enumeration and Asymptotic
-      Analysis of Strict Non-Plane Cactus Graphs over a Finite Set of Cycle
-      Lengths"</em> — every cycle in the graph must have a length belonging
-      to a finite set <code>Ω</code> fixed in advance. This page explores
+      Analysis of Unlabelled Vertex-Rooted Strict Non-Plane Cactus Graphs
+      over a Finite Set of Cycle Lengths"</em> — every cycle in the graph
+      must have a length belonging to a finite set <code>Ω</code> fixed in
+      advance, and a single distinguished vertex marks the root. This page
+      explores
       what these choices produce: four worked examples, their growth rates,
       and eight integer sequences extracted from the computations for OEIS.
     </p>
@@ -646,8 +705,8 @@
         The growth rate 1/ρ<sub>Ω</sub> always has a well-defined value. Whether
         it admits a <em>closed form</em> — an exact expression rather than
         merely a numerical approximation — depends on the parity pattern of
-        Ω: every length in Ω odd gives one (Theorem 5); one even length blocks
-        the method that produces it (Proposition 6).
+        Ω: every length in Ω odd gives one (Theorem 10); one even length blocks
+        the method that produces it (Proposition 11).
       </p>
 
       <div class="table-scroll">
@@ -664,30 +723,30 @@
           <tbody>
             <tr>
               <td class="omega">{5, 6}</td>
-              <td class="num">0.5308269</td>
-              <td class="num">0.7097839</td>
-              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>no — Prop. 6</span></td>
+              <td class="num">0.5309236</td>
+              <td class="num">0.7119693</td>
+              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>not obtained here — Prop. 11</span></td>
               <td class="num">2, 3, 4, 7, 8, 12</td>
             </tr>
             <tr>
               <td class="omega">{5, 7}</td>
-              <td class="num">0.5497952</td>
+              <td class="num">0.5498846</td>
               <td class="num">0.7267608</td>
-              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>yes — Thm. 5</span></td>
+              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>yes — Thm. 10</span></td>
               <td class="num">3</td>
             </tr>
             <tr>
               <td class="omega">{5, 7, 9}</td>
-              <td class="num">0.5351403</td>
+              <td class="num">0.5352181</td>
               <td class="num">0.6922038</td>
-              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>yes — Thm. 5</span></td>
+              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>yes — Thm. 10</span></td>
               <td class="num">3</td>
             </tr>
             <tr>
               <td class="omega">{5, 6, 7}</td>
-              <td class="num">0.5060964</td>
-              <td class="num">0.6635764</td>
-              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>no — Prop. 6</span></td>
+              <td class="num">0.5061815</td>
+              <td class="num">0.6653093</td>
+              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>not obtained here — Prop. 11</span></td>
               <td class="num">2, 3, 4, 8</td>
             </tr>
           </tbody>
@@ -740,22 +799,51 @@
     <div class="wrap">
       <div class="section-head">
         <h2 class="section-title">Watching a constant emerge</h2>
-        <p class="section-note">Ω = {5, 6, 7}, ρ<sub>Ω</sub> = 0.5060964 — reproduces Figure&nbsp;2 of the article.</p>
+        <p class="section-note">Ω = {5, 6, 7}, ρ<sub>Ω</sub> = 0.5061815 — reproduces Figure&nbsp;2 of the article.</p>
       </div>
       <p class="section-lede">
-        Theorem 8(a) predicts that s<sub>n</sub>&nbsp;ρ<sub>Ω</sub><sup>n</sup>&nbsp;n<sup>3/2</sup>
-        converges to a constant C<sub>Ω</sub> as n&nbsp;→&nbsp;∞ — the second-order coefficient of
-        the singular expansion. Ω={5,6,7} is deliberately the mixed-parity example from the table
-        above, the one where τ<sub>Ω</sub> has no closed form (Proposition 6): here, the numerical
+        Theorem 14(a) predicts that s<sub>n</sub>&nbsp;ρ<sub>Ω</sub><sup>n</sup>&nbsp;n<sup>3/2</sup>
+        converges to a constant C<sub>Ω</sub> as n&nbsp;→&nbsp;∞ — the amplitude constant of
+        the singular expansion, which involves an explicit second-derivative contribution rather
+        than a second term in an asymptotic expansion. Ω={5,6,7} is deliberately the mixed-parity example from the table
+        above, the one where τ<sub>Ω</sub> has no closed form (Proposition 11): here, the numerical
         convergence provides an independent consistency check on the computed value of ρ<sub>Ω</sub>,
         rather than merely illustrating a result obtained elsewhere. The initial oscillation is a
-        finite-size effect; it gradually damps out as n increases, and the curve settles near 0.136.
+        finite-size effect; it gradually damps out as n increases, and the curve settles near 0.1387.
       </p>
+
+      <div class="formal-box">
+        <div class="formal-label">Theorem 14, verbatim from the manuscript</div>
+        <p>
+          (a) For every finite \(\Omega \subset \mathbb{Z}_{\geq 5}\), there exists \(C_\Omega > 0\) such that
+        </p>
+        <p>
+          \[s_n \sim C_\Omega \, \rho_\Omega^{-n} \, n^{-3/2} \qquad (n \to \infty, \; n \equiv 1 \!\!\!\pmod d).\]
+        </p>
+        <p>
+          (b) For every finite \(\Omega \subset \mathbb{Z}_{\geq 5}\), in the notation of part (a),
+        </p>
+        <p>
+          \[C_\Omega \; = \; \frac{\gamma_\Omega}{2\sqrt{\pi}} \, \rho_\Omega \, d^{3/2}, \qquad
+          \gamma_\Omega \; = \; \sqrt{\frac{2 z_c \Psi_z}{\Psi_{HH}}},\]
+        </p>
+        <p>
+          where \(\Psi_z\) and \(\Psi_{HH}\) are evaluated at \((z_c, h_c)\), and
+        </p>
+        <p>
+          \[\Psi_{HH}(z_c, h_c) \; = \; \frac{\rho_\Omega}{\tau_\Omega} \; + \; \frac{\rho_\Omega}{2}
+          \sum_{m \in \Omega} (m-1)(m-2) \, \tau_\Omega^{m-2} \; > \; 0,\]
+        </p>
+        <p>
+          which is explicit once \(\rho_\Omega\) and \(\tau_\Omega\) are known. We do not obtain a closed
+          form for \(\Psi_z\), even when \(\Omega\) is a singleton.
+        </p>
+      </div>
 
       <div class="chart-card">
         <div class="chart-wrap-relative">
           <div class="chart-scroll">
-            <svg id="asympChart" viewBox="0 0 920 320" role="img" aria-label="s sub n times rho to the n times n to the 3/2, against n, for Omega = 5,6,7, converging near 0.136">
+            <svg id="asympChart" viewBox="0 0 920 320" role="img" aria-label="s sub n times rho to the n times n to the 3/2, against n, for Omega = 5,6,7, converging near 0.1387">
             </svg>
           </div>
           <div id="asympTooltip" class="chart-tooltip" role="status" aria-live="polite"></div>
@@ -764,9 +852,47 @@
       <p class="caption">
         Computed by exact rational arithmetic from the fixed-point equation of Table&nbsp;2, for
         5&nbsp;≤&nbsp;n&nbsp;≤&nbsp;150 (n = 8 is skipped: it's one of the exceptional vertex counts
-        in the table above, where s<sub>n</sub> = 0). Dashed line at 0.136, the value Theorem 8(a)'s
-        constant C<sub>Ω</sub> appears to be converging to — C<sub>Ω</sub> itself has no known closed
-        form in this mixed-parity case (Theorem 8(b)).
+        in the table above, where s<sub>n</sub> = 0). Dashed line at 0.1387, the value Theorem 14(a)'s
+        constant C<sub>Ω</sub> appears to be converging to — in this mixed-parity case, our method
+        does not yield a closed form for C<sub>Ω</sub> (Theorem 14(b)).
+      </p>
+    </div>
+  </section>
+
+  <section id="asymptotic-multi">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">Checking convergence across all four examples</h2>
+        <p class="section-note">Independent reproducibility check — not the article's figure.</p>
+      </div>
+      <p class="section-lede">
+        The article's Figure&nbsp;2, above, illustrates Theorem&nbsp;14(a)–(b) for a single
+        example, Ω&nbsp;=&nbsp;{5,6,7}. Table&nbsp;1 reports ρ<sub>Ω</sub>, τ<sub>Ω</sub>, and
+        C<sub>Ω</sub> for the other three examples as well; the chart below recomputes, by the
+        same exact-arithmetic method and independently of the figure above, the same convergence
+        of s<sub>n</sub>&nbsp;ρ<sub>Ω</sub><sup>n</sup>&nbsp;n<sup>3/2</sup> to C<sub>Ω</sub> for
+        each of the four sets in Table&nbsp;1, as an additional numerical consistency check
+        (the article itself makes no claim beyond the single case it plots).
+      </p>
+
+      <div class="omega-select">
+        <div class="omega-select-label">Select Ω:</div>
+        <div class="omega-btn-row" id="omegaSelector" role="group" aria-label="Select Omega"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-wrap-relative">
+          <div class="chart-scroll">
+            <svg id="multiAsympChart" viewBox="0 0 920 320" role="img" aria-label="s sub n times rho to the n times n to the 3/2, against n, selectable by Omega">
+            </svg>
+          </div>
+          <div id="multiAsympTooltip" class="chart-tooltip" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="caption" id="multiAsympCaption">
+        Computed by the same exact rational arithmetic as Figure&nbsp;2 above, from the
+        fixed-point equation of Table&nbsp;2. ρ<sub>Ω</sub> and C<sub>Ω</sub> as published in
+        Table&nbsp;1.
       </p>
     </div>
   </section>
@@ -810,7 +936,7 @@
 <header class="hero">
   <div class="wrap">
     <p class="eyebrow">cactus-mixed-cycle-lengths — version accessible</p>
-    <h1 class="title">Compter des cactus mathématiques<br>faits de <em>plusieurs</em> formes de boucles</h1>
+    <h1 class="title">Compter des cactus mathématiques<br>composés de <em>plusieurs</em> formes de boucles</h1>
     <p class="thesis">
       Un « cactus », en mathématiques, est une figure faite de boucles fermées
       — des polygones, comme un pentagone ou un hexagone — qui se touchent
@@ -956,7 +1082,7 @@
   <section id="fr-graphs">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="section-title">Des cactus qui sont en réalité des graphes</h2>
+        <h2 class="section-title">Des cactus qui sont en fait des graphes</h2>
       </div>
       <p class="section-lede">
         Pour comprendre comment les mathématiciens peuvent s'attaquer à un
@@ -1099,8 +1225,8 @@
         manière de décrire les cactus, nous devons encore compter les
         configurations. C'est ici qu'interviennent les <strong>fonctions
         génératrices</strong>. Le nom peut sembler mystérieux, mais l'idée
-        fondamentale est élégante. Supposons que nous cherchions une suite de
-        nombres : 1, 2, 13, 125, 1&nbsp;393, 17&nbsp;184, … — le premier
+        fondamentale est élégante. Supposons que nous obtenions une suite de
+        nombres, par exemple 1, 2, 13, 125, 1&nbsp;393, 17&nbsp;184, … — le premier
         nombre correspond à une taille, le deuxième à une taille un peu plus
         grande, et ainsi de suite. Plutôt que de considérer ces nombres comme
         une simple liste, on peut les placer dans une expression
@@ -1192,8 +1318,9 @@
       <p class="section-lede">
         Dans notre étude, les quatre mélanges présentent cette croissance,
         mais ils ne croissent pas exactement à la même vitesse : une droite
-        plus pentue signifie plus de cactus possibles à chaque bloc ajouté,
-        c'est-à-dire un taux de croissance ρ<sub>Ω</sub> plus élevé. Les
+        plus pentue correspond à une croissance plus rapide du nombre de
+        cactus, c'est-à-dire, dans notre notation, à une valeur plus faible
+        de ρ<sub>Ω</sub>. Les
         quatre courbes ci-dessous sont calculées à partir des vraies
         données, pas illustratives : chaque point correspond à un terme
         exact des suites soumises à l'OEIS (voir la section dédiée plus
@@ -1237,8 +1364,9 @@
       </p>
       <p class="section-lede">
         Dans notre problème, la présence d'une longueur paire modifie la
-        nature de l'équation qui gouverne les séries et empêche l'obtention
-        de la même formule exacte pour la constante τ<sub>Ω</sub>. Lorsque
+        nature de l'équation qui gouverne les séries et, dans notre méthode,
+        ne permet plus d'obtenir la même formule exacte pour la constante
+        τ<sub>Ω</sub>. Lorsque
         toutes les longueurs sont impaires, nous obtenons une expression
         exacte. Lorsqu'au moins une longueur paire est présente, notre
         résultat ne fournit plus cette expression fermée — la constante peut
@@ -1268,9 +1396,9 @@
         ajuster une courbe : ils sont issus de l'analyse mathématique des
         séries qui comptent les cactus. Le cas {5,&nbsp;7}, par exemple,
         contient uniquement des longueurs impaires et permet donc d'obtenir
-        la formule exacte prévue par le Théorème&nbsp;5. Le cas {5,&nbsp;6}
+        la formule exacte prévue par le Théorème&nbsp;10. Le cas {5,&nbsp;6}
         contient un hexagone et relève du comportement décrit par la
-        Proposition&nbsp;6. Le même contraste apparaît pour {5,&nbsp;7,&nbsp;9}
+        Proposition&nbsp;11. Le même contraste apparaît pour {5,&nbsp;7,&nbsp;9}
         et {5,&nbsp;6,&nbsp;7}.
       </p>
 
@@ -1288,30 +1416,30 @@
           <tbody>
             <tr>
               <td class="omega">{5, 6}</td>
-              <td class="num">0.5308269</td>
-              <td class="num">0.7097839</td>
-              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>non — Prop. 6</span></td>
+              <td class="num">0.5309236</td>
+              <td class="num">0.7119693</td>
+              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>non obtenue ici — Prop. 11</span></td>
               <td class="num">2, 3, 4, 7, 8, 12</td>
             </tr>
             <tr>
               <td class="omega">{5, 7}</td>
-              <td class="num">0.5497952</td>
+              <td class="num">0.5498846</td>
               <td class="num">0.7267608</td>
-              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>oui — Thm. 5</span></td>
+              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>oui — Thm. 10</span></td>
               <td class="num">3</td>
             </tr>
             <tr>
               <td class="omega">{5, 7, 9}</td>
-              <td class="num">0.5351403</td>
+              <td class="num">0.5352181</td>
               <td class="num">0.6922038</td>
-              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>oui — Thm. 5</span></td>
+              <td><span class="pill solve"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.5 4.7 3.6 7 7.5 2" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>oui — Thm. 10</span></td>
               <td class="num">3</td>
             </tr>
             <tr>
               <td class="omega">{5, 6, 7}</td>
-              <td class="num">0.5060964</td>
-              <td class="num">0.6635764</td>
-              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>non — Prop. 6</span></td>
+              <td class="num">0.5061815</td>
+              <td class="num">0.6653093</td>
+              <td><span class="pill block"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M4.5 1v7M1 4.5h7" stroke="currentColor" stroke-width="1.3"/></svg>non obtenue ici — Prop. 11</span></td>
               <td class="num">2, 3, 4, 8</td>
             </tr>
           </tbody>
@@ -1319,8 +1447,8 @@
       </div>
       <p class="caption">
         Les « n exceptionnels » sont les nombres de sommets pour lesquels la
-        série raciné a un coefficient nul, provablement (Théorème 3 /
-        Corollaire 4) — ce ne sont pas des données manquantes, mais une
+        série racinée a un coefficient nul (Théorème 3 / Corollaire 4) — ce
+        ne sont pas des données manquantes, mais une
         conséquence exacte des totaux qu'une chaîne de blocs de ces longueurs
         peut, ou ne peut pas, atteindre.
       </p>
@@ -1367,19 +1495,21 @@
     <div class="wrap">
       <div class="section-head">
         <h2 class="section-title">Une constante que l'on voit apparaître sous nos yeux</h2>
-        <p class="section-note">Ω = {5, 6, 7}, ρ<sub>Ω</sub> = 0.5060964 — reproduit la Figure&nbsp;2 de l'article.</p>
+        <p class="section-note">Ω = {5, 6, 7}, ρ<sub>Ω</sub> = 0.5061815 — reproduit la Figure&nbsp;2 de l'article.</p>
       </div>
       <p class="section-lede">
         Le cas Ω&nbsp;=&nbsp;{5,&nbsp;6,&nbsp;7} est particulièrement
         intéressant : il contient des longueurs impaires et une longueur
-        paire, et ρ<sub>Ω</sub>&nbsp;=&nbsp;0,5060964 (valeur publiée dans
-        le Tableau&nbsp;1 de l'article). Le théorème 8(a) prédit que la
+        paire, et ρ<sub>Ω</sub>&nbsp;=&nbsp;0,5061815 (valeur publiée dans
+        le Tableau&nbsp;1 de l'article). Le théorème 14(a) prédit que la
         quantité s<sub>n</sub>&nbsp;ρ<sub>Ω</sub><sup>n</sup>&nbsp;n<sup>3/2</sup>
         converge, quand n&nbsp;→&nbsp;∞, vers une constante notée
-        C<sub>Ω</sub> — le coefficient de second ordre du développement
-        singulier. C'est précisément cette quantité que la courbe ci-dessous
+        C<sub>Ω</sub> — la constante d'amplitude du développement
+        singulier, qui fait intervenir une dérivée seconde explicite plutôt
+        qu'un second terme d'un développement asymptotique. C'est précisément
+        cette quantité que la courbe ci-dessous
         trace, et qui semble se rapprocher progressivement d'une valeur
-        voisine de 0,136.
+        voisine de 0,1387.
       </p>
       <p class="section-lede">
         Lorsque l'on trace cette quantité en fonction de n, la courbe
@@ -1393,10 +1523,83 @@
         vérification indépendante des calculs, visible à l'œil nu.
       </p>
 
+      <div class="formal-intro">
+        <h3>Le théorème qui décrit la croissance</h3>
+        <p class="section-lede">
+          Jusqu'ici, nous avons surtout parlé de nombres : combien de cactus peut-on construire
+          pour un nombre donné de sommets ? Le résultat suivant va plus loin. Il ne donne pas
+          seulement quelques valeurs : il décrit la manière dont le nombre de cactus augmente
+          lorsque la taille devient très grande.
+        </p>
+        <p class="section-lede">
+          Pour l'énoncer, il faut deux constantes qui jouent un rôle central dans toute l'étude.
+          La première, ρ<sub>Ω</sub>, est le nombre qui contrôle la vitesse de croissance. La
+          seconde, C<sub>Ω</sub>, en donne l'échelle précise.
+        </p>
+        <p class="section-lede">
+          Si s<sub>n</sub> désigne le nombre de cactus racinés de taille n, on pourrait donc
+          s'attendre à une croissance de la forme s<sub>n</sub>&nbsp;≈&nbsp;C<sub>Ω</sub>
+          ρ<sub>Ω</sub><sup>−n</sup>. Le théorème montre que cette première intuition est presque
+          correcte, mais qu'il manque un facteur supplémentaire : une puissance de n. Plus
+          précisément, cette puissance est n<sup>−3/2</sup>.
+        </p>
+        <p class="section-lede">
+          Il faut également tenir compte d'un phénomène arithmétique : toutes les tailles ne sont
+          pas nécessairement possibles. Si d&nbsp;=&nbsp;pgcd{m&nbsp;−&nbsp;1&nbsp;:&nbsp;m&nbsp;∈&nbsp;Ω},
+          alors les tailles possibles sont concentrées dans la classe n&nbsp;≡&nbsp;1&nbsp;(mod&nbsp;d).
+          C'est seulement le long de ces tailles admissibles que le théorème donne l'équivalent
+          asymptotique suivant.
+        </p>
+      </div>
+
+      <div class="formal-box">
+        <div class="formal-label">Théorème 14, tel qu'énoncé dans l'article</div>
+        <p>
+          Pour n&nbsp;→&nbsp;∞ avec n&nbsp;≡&nbsp;1&nbsp;(mod&nbsp;d),
+        </p>
+        <p>
+          \[s_n \sim C_\Omega \, \rho_\Omega^{-n} \, n^{-3/2}\]
+        </p>
+        <p>
+          où
+        </p>
+        <p>
+          \[C_\Omega \; = \; \frac{\gamma_\Omega}{2\sqrt{\pi}} \, \rho_\Omega \, d^{3/2}, \qquad
+          \gamma_\Omega \; = \; \sqrt{\frac{2 z_c \Psi_z}{\Psi_{HH}}}.\]
+        </p>
+        <p>
+          Ici,
+        </p>
+        <p>
+          \[z_c \; = \; \rho_\Omega^{\,d}, \qquad h_c \; = \; \frac{\tau_\Omega}{\rho_\Omega},\]
+        </p>
+        <p>
+          Ψ<sub>z</sub> et Ψ<sub>HH</sub> sont évaluées en (z<sub>c</sub>, h<sub>c</sub>), et
+        </p>
+        <p>
+          \[\Psi_{HH}(z_c, h_c) \; = \; \frac{\rho_\Omega}{\tau_\Omega} \; + \; \frac{\rho_\Omega}{2}
+          \sum_{m \in \Omega} (m-1)(m-2) \, \tau_\Omega^{m-2} \; > \; 0,\]
+        </p>
+        <p>
+          expression explicite dès que ρ<sub>Ω</sub> et τ<sub>Ω</sub> sont connues. Aucune formule
+          fermée n'est obtenue pour Ψ<sub>z</sub>, même lorsque Ω est réduit à un seul élément.
+        </p>
+      </div>
+
+      <p class="section-lede">
+        Cette formule contient toute l'histoire de la croissance. Le terme ρ<sub>Ω</sub><sup>−n</sup>
+        donne la vitesse exponentielle : plus ρ<sub>Ω</sub> est petit, plus le nombre de cactus
+        augmente rapidement. Le facteur n<sup>−3/2</sup> décrit la correction plus fine qui
+        apparaît à grande taille. Enfin, C<sub>Ω</sub> rassemble les constantes qui déterminent
+        l'échelle exacte de cette croissance. Autrement dit, même lorsque les nombres deviennent
+        gigantesques, leur croissance n'est pas chaotique : elle suit une loi mathématique
+        précise.
+      </p>
+
       <div class="chart-card">
         <div class="chart-wrap-relative">
           <div class="chart-scroll">
-            <svg id="asympChartFR" viewBox="0 0 920 320" role="img" aria-label="Une quantité liée aux coefficients de la série, en fonction de n, pour Omega = 5,6,7, convergeant près de 0,136">
+            <svg id="asympChartFR" viewBox="0 0 920 320" role="img" aria-label="Une quantité liée aux coefficients de la série, en fonction de n, pour Omega = 5,6,7, convergeant près de 0,1387">
             </svg>
           </div>
           <div id="asympTooltipFR" class="chart-tooltip" role="status" aria-live="polite"></div>
@@ -1407,10 +1610,52 @@
         rationnelle exacte à partir de l'équation de point fixe donnée dans
         le Tableau&nbsp;2, jusqu'à n&nbsp;=&nbsp;150 (n&nbsp;=&nbsp;8 est
         absent : c'est l'une des tailles exceptionnelles pour ce mélange).
-        Ligne pointillée à 0,136, la valeur vers laquelle la constante
-        C<sub>Ω</sub> du théorème 8(a) semble converger — C<sub>Ω</sub>
-        elle-même n'a aucune formule exacte connue dans ce cas de parité
-        mixte (théorème 8(b)).
+        Ligne pointillée à 0,1387, la valeur vers laquelle la constante
+        C<sub>Ω</sub> du théorème 14(a) semble converger — dans ce cas de
+        parité mixte, notre méthode ne fournit pas de formule fermée pour
+        C<sub>Ω</sub> (théorème 14(b)).
+      </p>
+    </div>
+  </section>
+
+  <section id="asymptotic-multi-fr">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">Et pour les trois autres mélanges ?</h2>
+        <p class="section-note">Outil de vérification complémentaire — pas la figure de l'article.</p>
+      </div>
+      <p class="section-lede">
+        La Figure&nbsp;2 de l'article, montrée ci-dessus, illustre cette convergence pour un seul
+        cas, Ω&nbsp;=&nbsp;{5,6,7}. Mais le Tableau&nbsp;1 donne aussi ρ<sub>Ω</sub>, τ<sub>Ω</sub>
+        et C<sub>Ω</sub> pour les trois autres mélanges. Curieux de voir si la même convergence
+        s'observe pour eux aussi ? Le graphique ci-dessous refait le même calcul, indépendamment
+        de la figure de l'article, pour chacun des quatre cas du Tableau&nbsp;1 — choisissez un Ω
+        pour voir sa courbe.
+      </p>
+      <p class="section-lede">
+        Ce graphique ne fait pas partie de l'article : c'est un outil de vérification
+        supplémentaire, construit à partir du même code, pour montrer que le phénomène décrit
+        par le théorème 14 ne se limite pas au seul exemple illustré dans la publication.
+      </p>
+
+      <div class="omega-select">
+        <div class="omega-select-label">Choisir Ω :</div>
+        <div class="omega-btn-row" id="omegaSelectorFR" role="group" aria-label="Choisir Omega"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-wrap-relative">
+          <div class="chart-scroll">
+            <svg id="multiAsympChartFR" viewBox="0 0 920 320" role="img" aria-label="Une quantité liée aux coefficients de la série, en fonction de n, sélectionnable par Omega">
+            </svg>
+          </div>
+          <div id="multiAsympTooltipFR" class="chart-tooltip" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="caption" id="multiAsympCaptionFR">
+        Calculé par la même arithmétique rationnelle exacte que la Figure&nbsp;2 ci-dessus, à
+        partir de l'équation de point fixe du Tableau&nbsp;2. ρ<sub>Ω</sub> et C<sub>Ω</sub> tels
+        que publiés dans le Tableau&nbsp;1.
       </p>
     </div>
   </section>
@@ -1491,7 +1736,7 @@
   <section id="demo-fr">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="section-title">Vingt-cinq blocs : essayez vous-même</h2>
+        <h2 class="section-title">Vingt-cinq blocs : essayez par vous-même</h2>
       </div>
       <p class="section-lede">
         Pour rendre cette croissance tangible, nous avons également préparé
@@ -1532,7 +1777,7 @@
   <section id="combinatorics-fr">
     <div class="wrap">
       <div class="section-head">
-        <h2 class="section-title">Pourquoi cela dépasse largement le cas des cactus</h2>
+        <h2 class="section-title">Pourquoi cette idée dépasse largement le cas des cactus</h2>
       </div>
       <p class="section-lede">
         Les cactus constituent ici un laboratoire mathématique
@@ -1673,8 +1918,8 @@
         liée à un modèle de physique statistique. Le même objet numérique
         peut ainsi relier des domaines qui, au départ, semblaient n'avoir
         absolument aucun rapport. C'est exactement cette première
-        vérification qui a confirmé, pour cet article, qu'aucune des huit
-        suites présentées plus bas n'existait avant ce travail.
+        vérification qui nous a permis de constater qu'aucune des huit
+        suites présentées plus bas ne figurait alors dans l'OEIS.
       </p>
     </div>
   </section>
@@ -1788,9 +2033,9 @@
         il sert de point de départ. Dans une suite <strong>non-racinée</strong>,
         aucun sommet n'est privilégié. Les huit suites ont été calculées,
         vérifiées par les méthodes décrites dans le dépôt de code, soumises
-        à l'OEIS, puis examinées par ses éditeurs bénévoles et intégrées à
-        la base : elles n'existaient dans aucune base de données avant ce
-        travail. Cliquez sur une ligne de termes pour en afficher les 25
+        à l'OEIS, puis examinées par les éditeurs de l'OEIS et intégrées à
+        la base : elles ne figuraient pas auparavant dans l'OEIS. Cliquez
+        sur une ligne de termes pour en afficher les 25
         premiers en entier, ou sur le numéro A-xxxxxx pour ouvrir la fiche
         complète de la suite sur le site de l'OEIS.
       </p>
@@ -1824,15 +2069,15 @@
         plusieurs idées fondamentales des mathématiques.
       </p>
       <p class="section-lede">
-        On commence avec des dessins. Puis on découvre qu'ils sont des
-        graphes. On cherche à les compter et l'on entre dans la
+        Nous commençons avec des dessins. Puis nous découvrons qu'ils sont
+        des graphes. Nous cherchons à les compter et entrons dans la
         combinatoire. Le nombre de configurations devient gigantesque, alors
-        on cherche une structure qui permette de les compter sans les
-        énumérer — cette structure conduit aux fonctions génératrices. On
-        étudie ensuite ce qui se passe lorsque la taille devient très
-        grande, et l'on entre dans l'analyse asymptotique. On découvre que
-        les longueurs paires et impaires n'ont pas le même rôle. On
-        rencontre au passage le problème de Frobenius. Puis les suites de
+        nous cherchons une structure qui permette de les compter sans les
+        énumérer — cette structure conduit aux fonctions génératrices. Nous
+        étudions ensuite ce qui se passe lorsque la taille devient très
+        grande, et entrons dans l'analyse asymptotique. Nous découvrons que
+        les longueurs paires et impaires n'ont pas le même rôle. Nous
+        rencontrons au passage le problème de Frobenius. Puis les suites de
         nombres produites par l'étude rejoignent une bibliothèque mondiale
         de suites, l'OEIS.
       </p>
@@ -2033,10 +2278,12 @@
   buildGrowthChart("FR");
 
   // ---------- asymptotic convergence chart (Figure 2 of the article) ----------
-  // s_n * rho_Omega^n * n^1.5 for Omega = {5,6,7}, rho_Omega = 0.5060964, 5<=n<=150,
+  // s_n * rho_Omega^n * n^1.5 for Omega = {5,6,7}, rho_Omega = 0.506181465494348, 5<=n<=150,
   // recomputed directly from mgonal_cactus_series_omega.py's exact series (n=8 is
-  // skipped: it's an exceptional vertex count, s_8 = 0, per Table 1 above).
-  var asympData = [[5,0.371211],[6,0.24696],[7,0.1575],[9,0.176435],[10,0.209162],[11,0.203542],[12,0.082162],[13,0.113867],[14,0.155325],[15,0.197751],[16,0.142263],[17,0.116966],[18,0.123918],[19,0.164861],[20,0.159673],[21,0.138024],[22,0.122953],[23,0.141113],[24,0.153336],[25,0.149003],[26,0.133518],[27,0.133624],[28,0.142768],[29,0.148193],[30,0.141477],[31,0.135744],[32,0.137392],[33,0.143152],[34,0.14336],[35,0.139408],[36,0.137095],[37,0.139433],[38,0.141749],[39,0.140983],[40,0.138601],[41,0.138275],[42,0.139761],[43,0.140601],[44,0.139624],[45,0.138553],[46,0.138741],[47,0.139593],[48,0.139676],[49,0.138996],[50,0.138562],[51,0.138851],[52,0.139214],[53,0.139074],[54,0.138659],[55,0.138538],[56,0.138736],[57,0.138846],[58,0.138669],[59,0.138452],[60,0.138437],[61,0.138538],[62,0.138529],[63,0.138389],[64,0.13828],[65,0.138288],[66,0.138317],[67,0.138268],[68,0.13817],[69,0.138115],[70,0.138114],[71,0.138104],[72,0.138047],[73,0.137981],[74,0.137947],[75,0.137934],[76,0.137905],[77,0.137854],[78,0.137807],[79,0.137779],[80,0.137756],[81,0.137721],[82,0.137677],[83,0.13764],[84,0.137612],[85,0.137584],[86,0.137548],[87,0.137511],[88,0.137478],[89,0.137449],[90,0.137419],[91,0.137385],[92,0.137351],[93,0.13732],[94,0.137291],[95,0.13726],[96,0.137227],[97,0.137196],[98,0.137166],[99,0.137137],[100,0.137106],[101,0.137075],[102,0.137045],[103,0.137016],[104,0.136987],[105,0.136957],[106,0.136927],[107,0.136898],[108,0.136869],[109,0.13684],[110,0.136811],[111,0.136782],[112,0.136753],[113,0.136725],[114,0.136697],[115,0.136668],[116,0.13664],[117,0.136612],[118,0.136584],[119,0.136556],[120,0.136528],[121,0.1365],[122,0.136472],[123,0.136445],[124,0.136417],[125,0.13639],[126,0.136363],[127,0.136335],[128,0.136308],[129,0.136281],[130,0.136254],[131,0.136227],[132,0.1362],[133,0.136173],[134,0.136146],[135,0.13612],[136,0.136093],[137,0.136066],[138,0.13604],[139,0.136013],[140,0.135987],[141,0.135961],[142,0.135934],[143,0.135908],[144,0.135882],[145,0.135856],[146,0.13583],[147,0.135804],[148,0.135778],[149,0.135752],[150,0.135726]];
+  // skipped: it's an exceptional vertex count, s_8 = 0, per Table 1 above). rho_Omega
+  // and the reference constant C_Omega=0.138735005523206 match critical_point_solver.py
+  // / amplitude_check_omega.py in this repository (corrected 2026-09-23).
+  var asympData = [[5,0.371523],[6,0.247209],[7,0.157685],[9,0.176702],[10,0.209514],[11,0.203919],[12,0.082327],[13,0.114116],[14,0.155691],[15,0.198250],[16,0.142646],[17,0.117300],[18,0.124293],[19,0.165388],[20,0.160211],[21,0.138512],[22,0.123408],[23,0.141659],[24,0.153956],[25,0.149631],[26,0.134102],[27,0.134232],[28,0.143441],[29,0.148917],[30,0.142192],[31,0.136454],[32,0.138133],[33,0.143948],[34,0.144182],[35,0.140230],[36,0.137927],[37,0.140302],[38,0.142657],[39,0.141910],[40,0.139536],[41,0.139231],[42,0.140751],[43,0.141621],[44,0.140660],[45,0.139605],[46,0.139818],[47,0.140700],[48,0.140807],[49,0.140145],[50,0.139731],[51,0.140046],[52,0.140436],[53,0.140318],[54,0.139923],[55,0.139825],[56,0.140048],[57,0.140183],[58,0.140028],[59,0.139832],[60,0.139840],[61,0.139966],[62,0.139980],[63,0.139862],[64,0.139776],[65,0.139807],[66,0.139860],[67,0.139833],[68,0.139758],[69,0.139726],[70,0.139749],[71,0.139762],[72,0.139728],[73,0.139685],[74,0.139674],[75,0.139684],[76,0.139678],[77,0.139650],[78,0.139625],[79,0.139620],[80,0.139620],[81,0.139608],[82,0.139588],[83,0.139574],[84,0.139569],[85,0.139563],[86,0.139551],[87,0.139536],[88,0.139527],[89,0.139521],[90,0.139513],[91,0.139502],[92,0.139491],[93,0.139484],[94,0.139477],[95,0.139469],[96,0.139459],[97,0.139451],[98,0.139444],[99,0.139438],[100,0.139430],[101,0.139422],[102,0.139415],[103,0.139409],[104,0.139402],[105,0.139395],[106,0.139388],[107,0.139382],[108,0.139376],[109,0.139370],[110,0.139364],[111,0.139358],[112,0.139352],[113,0.139346],[114,0.139341],[115,0.139335],[116,0.139330],[117,0.139325],[118,0.139320],[119,0.139314],[120,0.139309],[121,0.139304],[122,0.139300],[123,0.139295],[124,0.139290],[125,0.139286],[126,0.139281],[127,0.139277],[128,0.139272],[129,0.139268],[130,0.139264],[131,0.139259],[132,0.139255],[133,0.139251],[134,0.139247],[135,0.139243],[136,0.139240],[137,0.139236],[138,0.139232],[139,0.139228],[140,0.139225],[141,0.139221],[142,0.139218],[143,0.139214],[144,0.139211],[145,0.139207],[146,0.139204],[147,0.139201],[148,0.139197],[149,0.139194],[150,0.139191]];
 
   function buildAsymptoticChart(suffix) {
     var svg2 = document.getElementById("asympChart" + suffix);
@@ -2064,13 +2311,13 @@
       svg2.appendChild(t);
     });
 
-    // dashed reference line at 0.136
+    // dashed reference line at C_Omega = 0.1387 (0.138735005523206, corrected 2026-09-23)
     svg2.appendChild(el("line", {
-      x1: padL2, x2: W2 - padR2, y1: y2(0.136), y2: y2(0.136),
+      x1: padL2, x2: W2 - padR2, y1: y2(0.1387), y2: y2(0.1387),
       stroke: "var(--ink-faint)", "stroke-width": 1, "stroke-dasharray": "4 3"
     }));
-    var refLabel = el("text", { x: W2 - padR2 + 6, y: y2(0.136) + 4, class: "chart-axis-text" });
-    refLabel.textContent = "0.136";
+    var refLabel = el("text", { x: W2 - padR2 + 6, y: y2(0.1387) + 4, class: "chart-axis-text" });
+    refLabel.textContent = "0.1387";
     svg2.appendChild(refLabel);
 
     // the curve
@@ -2140,6 +2387,191 @@
 
   buildAsymptoticChart("");
   buildAsymptoticChart("FR");
+
+  // ---------- multi-Omega convergence check (reproducibility tool, not Figure 2) ----------
+  // s_n * rho_Omega^n * n^1.5 for all four Omega of Table 1, recomputed independently by
+  // the same exact-rational method as asympData above (mgonal_cactus_series_omega.py),
+  // cross-checked against critical_point_solver.py / generate_fig2.py's REFERENCE_VALUES
+  // (rho_Omega, C_Omega) — see verify_R4_recurrence.py and the REPO's python/ directory.
+  var multiAsympMeta = {
+    "5,6":    { rho: 0.530923625274025, C: 0.156351357866176 },
+    "5,7":    { rho: 0.549884575826361, C: 0.302088001203884 },
+    "5,7,9":  { rho: 0.535218127227685, C: 0.269362679524554 },
+    "5,6,7":  { rho: 0.506181465494348, C: 0.138735005523206 }
+  };
+  var multiAsympData = {
+    "5,6": [[5,0.471645],[6,0.329169],[9,0.271502],[10,0.337654],[11,0.137880],[13,0.162284],[14,0.303686],[15,0.213705],[16,0.056120],[17,0.091962],[18,0.238523],[19,0.246019],[20,0.117553],[21,0.076536],[22,0.176864],[23,0.240484],[24,0.168433],[25,0.092634],[26,0.135026],[27,0.213057],[28,0.196474],[29,0.123006],[30,0.117373],[31,0.180452],[32,0.202271],[33,0.152399],[34,0.119445],[35,0.154329],[36,0.192692],[37,0.172188],[38,0.132656],[39,0.139902],[40,0.176616],[41,0.180069],[42,0.148514],[43,0.136816],[44,0.161388],[45,0.178281],[46,0.161099],[47,0.141458],[48,0.151217],[49,0.171119],[50,0.167835],[51,0.149320],[52,0.147135],[53,0.162820],[54,0.168941],[55,0.156706],[56,0.147936],[57,0.156303],[58,0.166262],[59,0.161531],[60,0.151415],[61,0.152805],[62,0.162065],[63,0.163309],[64,0.155435],[65,0.152166],[66,0.158191],[67,0.162674],[68,0.158538],[69,0.153427],[70,0.155660],[71,0.160744],[72,0.160121],[73,0.155437],[74,0.154688],[75,0.158592],[76,0.160284],[77,0.157271],[78,0.154936],[79,0.156937],[80,0.159516],[81,0.158426],[82,0.155832],[83,0.156069],[84,0.158401],[85,0.158803],[86,0.156833],[87,0.155925],[88,0.157397],[89,0.158579],[90,0.157582],[91,0.156250],[92,0.156751],[93,0.158046],[94,0.157937],[95,0.156748],[96,0.156506],[97,0.157474],[98,0.157934],[99,0.157190],[100,0.156567],[101,0.157040],[102,0.157704],[103,0.157452],[104,0.156785],[105,0.156813],[106,0.157396],[107,0.157517],[108,0.157022],[109,0.156769],[110,0.157125],[111,0.157433],[112,0.157191],[113,0.156842],[114,0.156950],[115,0.157276],[116,0.157258],[117,0.156955],[118,0.156878],[119,0.157115],[120,0.157237],[121,0.157051],[122,0.156883],[123,0.156992],[124,0.157160],[125,0.157100],[126,0.156927],[127,0.156923],[128,0.157067],[129,0.157100],[130,0.156974],[131,0.156902],[132,0.156986],[133,0.157064],[134,0.157003],[135,0.156910],[136,0.156931],[137,0.157011],[138,0.157007],[139,0.156927],[140,0.156902],[141,0.156958],[142,0.156989],[143,0.156940],[144,0.156894],[145,0.156917],[146,0.156958],[147,0.156942],[148,0.156895],[149,0.156890],[150,0.156923]],
+    "5,7": [[5,0.562099],[7,0.281545],[9,0.372331],[11,0.304248],[13,0.334884],[15,0.324835],[17,0.312426],[19,0.318506],[21,0.310028],[23,0.313210],[25,0.309526],[27,0.309889],[29,0.308811],[31,0.308266],[33,0.307929],[35,0.307366],[37,0.307153],[39,0.306756],[41,0.306545],[43,0.306277],[45,0.306076],[47,0.305880],[49,0.305705],[51,0.305548],[53,0.305401],[55,0.305269],[57,0.305145],[59,0.305031],[61,0.304925],[63,0.304827],[65,0.304736],[67,0.304650],[69,0.304570],[71,0.304494],[73,0.304423],[75,0.304356],[77,0.304293],[79,0.304234],[81,0.304177],[83,0.304123],[85,0.304073],[87,0.304024],[89,0.303978],[91,0.303934],[93,0.303892],[95,0.303852],[97,0.303814],[99,0.303777],[101,0.303742],[103,0.303708],[105,0.303676],[107,0.303644],[109,0.303615],[111,0.303586],[113,0.303558],[115,0.303531],[117,0.303506],[119,0.303481],[121,0.303457],[123,0.303434],[125,0.303411],[127,0.303389],[129,0.303368],[131,0.303348],[133,0.303328],[135,0.303309],[137,0.303291],[139,0.303273],[141,0.303256],[143,0.303239],[145,0.303222],[147,0.303206],[149,0.303191]],
+    "5,7,9": [[5,0.491031],[7,0.233004],[9,0.389225],[11,0.225985],[13,0.332680],[15,0.255919],[17,0.302773],[19,0.264834],[21,0.288028],[23,0.269745],[25,0.281080],[27,0.271736],[29,0.277324],[31,0.272560],[33,0.275250],[35,0.272756],[37,0.274023],[39,0.272687],[41,0.273251],[43,0.272508],[45,0.272730],[47,0.272297],[49,0.272356],[51,0.272088],[53,0.272072],[55,0.271893],[57,0.271845],[59,0.271718],[61,0.271659],[63,0.271562],[65,0.271501],[67,0.271423],[69,0.271365],[71,0.271300],[73,0.271246],[75,0.271190],[77,0.271141],[79,0.271092],[81,0.271047],[83,0.271003],[85,0.270963],[87,0.270923],[89,0.270887],[91,0.270851],[93,0.270817],[95,0.270785],[97,0.270754],[99,0.270725],[101,0.270696],[103,0.270669],[105,0.270643],[107,0.270618],[109,0.270594],[111,0.270571],[113,0.270548],[115,0.270527],[117,0.270506],[119,0.270486],[121,0.270467],[123,0.270448],[125,0.270430],[127,0.270412],[129,0.270396],[131,0.270379],[133,0.270363],[135,0.270348],[137,0.270333],[139,0.270319],[141,0.270305],[143,0.270291],[145,0.270278],[147,0.270265],[149,0.270252]],
+    "5,6,7": asympData
+  };
+
+  function buildMultiAsymptoticChart(suffix) {
+    var selector = document.getElementById("omegaSelector" + suffix);
+    var svg3 = document.getElementById("multiAsympChart" + suffix);
+    if (!selector || !svg3) return;
+    var tooltip3 = document.getElementById("multiAsympTooltip" + suffix);
+    var captionEl = document.getElementById("multiAsympCaption" + suffix);
+    var isFR = suffix === "FR";
+    var currentKey = "5,6";
+
+    // build selector buttons (reuses `order` and `colorVar` from the growth chart above)
+    order.forEach(function (key) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "omega-btn" + (key === currentKey ? " active" : "");
+      btn.dataset.key = key;
+      var dot = document.createElement("span");
+      dot.className = "omega-btn-dot";
+      dot.style.background = "var(" + colorVar[key] + ")";
+      btn.appendChild(dot);
+      var label = document.createElement("span");
+      label.textContent = "Ω = {" + key + "}";
+      btn.appendChild(label);
+      btn.addEventListener("click", function () {
+        if (currentKey === key) return;
+        currentKey = key;
+        selector.querySelectorAll(".omega-btn").forEach(function (b) {
+          b.classList.toggle("active", b.dataset.key === key);
+        });
+        draw();
+      });
+      selector.appendChild(btn);
+    });
+
+    function niceCeil(v) {
+      var mag = Math.pow(10, Math.floor(Math.log10(v)));
+      var steps = [1, 2, 2.5, 5, 10];
+      for (var i = 0; i < steps.length; i++) {
+        if (v <= steps[i] * mag) return steps[i] * mag;
+      }
+      return 10 * mag;
+    }
+
+    function draw() {
+      while (svg3.firstChild) svg3.removeChild(svg3.firstChild);
+      var data = multiAsympData[currentKey];
+      var meta = multiAsympMeta[currentKey];
+      var color = "var(" + colorVar[currentKey] + ")";
+
+      var ns = data.map(function (p) { return p[0]; });
+      var vs = data.map(function (p) { return p[1]; });
+      var xMin3 = ns[0], xMax3 = ns[ns.length - 1];
+      var yMax3 = niceCeil(Math.max.apply(null, vs.concat([meta.C])) * 1.05);
+      var yMin3 = 0;
+
+      var W3 = 920, H3 = 320;
+      var padL3 = 52, padR3 = 56, padT3 = 18, padB3 = 34;
+      var plotW3 = W3 - padL3 - padR3, plotH3 = H3 - padT3 - padB3;
+
+      function x3(n) { return padL3 + (n - xMin3) / (xMax3 - xMin3) * plotW3; }
+      function y3(v) { return padT3 + plotH3 - (v - yMin3) / (yMax3 - yMin3) * plotH3; }
+
+      // gridlines (y) — 4 evenly spaced ticks
+      for (var gi = 1; gi <= 4; gi++) {
+        var gy = yMax3 * gi / 4;
+        svg3.appendChild(el("line", { x1: padL3, x2: W3 - padR3, y1: y3(gy), y2: y3(gy), class: "chart-gridline" }));
+        var t = el("text", { x: padL3 - 10, y: y3(gy) + 3, class: "chart-axis-text", "text-anchor": "end" });
+        t.textContent = gy.toFixed(2);
+        svg3.appendChild(t);
+      }
+      // x ticks (5 evenly spaced, snapped to nearest data point)
+      for (var xi = 0; xi <= 4; xi++) {
+        var approxN = xMin3 + (xMax3 - xMin3) * xi / 4;
+        var nearest = ns.reduce(function (a, b) { return Math.abs(b - approxN) < Math.abs(a - approxN) ? b : a; });
+        var xt = el("text", { x: x3(nearest), y: H3 - 10, class: "chart-axis-text", "text-anchor": "middle" });
+        xt.textContent = "n=" + nearest;
+        svg3.appendChild(xt);
+      }
+
+      // dashed reference line at C_Omega
+      svg3.appendChild(el("line", {
+        x1: padL3, x2: W3 - padR3, y1: y3(meta.C), y2: y3(meta.C),
+        stroke: "var(--ink-faint)", "stroke-width": 1, "stroke-dasharray": "4 3"
+      }));
+      var refLabel3 = el("text", { x: W3 - padR3 + 6, y: y3(meta.C) + 4, class: "chart-axis-text" });
+      refLabel3.textContent = meta.C.toFixed(4);
+      svg3.appendChild(refLabel3);
+
+      // the curve
+      var d3 = data.map(function (p, i) { return (i === 0 ? "M" : "L") + x3(p[0]).toFixed(2) + "," + y3(p[1]).toFixed(2); }).join(" ");
+      var path3 = el("path", { d: d3, class: "chart-line" });
+      path3.style.stroke = color;
+      svg3.appendChild(path3);
+
+      var crosshair3 = el("line", { x1: 0, x2: 0, y1: padT3, y2: H3 - padB3, class: "crosshair" });
+      svg3.appendChild(crosshair3);
+      var dot3 = el("circle", { class: "chart-hover-dot" });
+      dot3.style.stroke = color;
+      dot3.style.opacity = 0;
+      svg3.appendChild(dot3);
+
+      var hoverLayer3 = el("rect", { x: padL3, y: padT3, width: plotW3, height: plotH3, fill: "transparent" });
+      svg3.appendChild(hoverLayer3);
+
+      function nearestPoint(nApprox) {
+        var best = data[0], bestDiff = Infinity;
+        for (var i = 0; i < data.length; i++) {
+          var diff = Math.abs(data[i][0] - nApprox);
+          if (diff < bestDiff) { bestDiff = diff; best = data[i]; }
+        }
+        return best;
+      }
+      function showAt3(nApprox) {
+        var p = nearestPoint(nApprox);
+        crosshair3.setAttribute("x1", x3(p[0]));
+        crosshair3.setAttribute("x2", x3(p[0]));
+        crosshair3.style.opacity = 1;
+        dot3.setAttribute("cx", x3(p[0]));
+        dot3.setAttribute("cy", y3(p[1]));
+        dot3.style.opacity = 1;
+        tooltip3.innerHTML = '<div class="tt-row"><span class="tt-swatch" style="background:' + color + '"></span>n = ' + p[0] + ": " + p[1].toFixed(6) + "</div>";
+        tooltip3.style.opacity = 1;
+        var svgRect = svg3.getBoundingClientRect();
+        var wrapRect = svg3.closest(".chart-wrap-relative").getBoundingClientRect();
+        var px = svgRect.left - wrapRect.left + (x3(p[0]) / W3) * svgRect.width;
+        var py = svgRect.top - wrapRect.top + (y3(yMax3) / H3) * svgRect.height;
+        tooltip3.style.left = Math.min(px + 14, wrapRect.width - 150) + "px";
+        tooltip3.style.top = Math.max(py - 6, 4) + "px";
+      }
+      function hideTip3() {
+        crosshair3.style.opacity = 0;
+        dot3.style.opacity = 0;
+        tooltip3.style.opacity = 0;
+      }
+      svg3.addEventListener("mousemove", function (evt) {
+        var rect = svg3.getBoundingClientRect();
+        var mx = (evt.clientX - rect.left) / rect.width * W3;
+        var n = xMin3 + (mx - padL3) / plotW3 * (xMax3 - xMin3);
+        if (n < xMin3 || n > xMax3) { hideTip3(); return; }
+        showAt3(n);
+      });
+      svg3.addEventListener("mouseleave", hideTip3);
+      svg3.addEventListener("touchmove", function (evt) {
+        var touch = evt.touches[0];
+        var rect = svg3.getBoundingClientRect();
+        var mx = (touch.clientX - rect.left) / rect.width * W3;
+        var n = xMin3 + (mx - padL3) / plotW3 * (xMax3 - xMin3);
+        if (n >= xMin3 && n <= xMax3) showAt3(n);
+      }, { passive: true });
+
+      if (captionEl) {
+        var base = isFR
+          ? "Calculé par la même arithmétique rationnelle exacte que la Figure 2 ci-dessus, à partir de l'équation de point fixe du Tableau 2, pour "
+          : "Computed by the same exact rational arithmetic as Figure 2 above, from the fixed-point equation of Table 2, for ";
+        var rangeTxt = xMin3 + " ≤ n ≤ " + xMax3;
+        var refTxt = isFR
+          ? (" Ω = {" + currentKey + "}, ρ<sub>Ω</sub> = " + meta.rho.toFixed(7) + ". Ligne pointillée à C<sub>Ω</sub> = " + meta.C.toFixed(6) + " (Tableau 1).")
+          : (" Ω = {" + currentKey + "}, ρ<sub>Ω</sub> = " + meta.rho.toFixed(7) + ". Dashed line at C<sub>Ω</sub> = " + meta.C.toFixed(6) + " (Table 1).");
+        captionEl.innerHTML = base + rangeTxt + "." + refTxt;
+      }
+    }
+
+    draw();
+  }
+
+  buildMultiAsymptoticChart("");
+  buildMultiAsymptoticChart("FR");
 
   // raw data table (accessible alternative)
   var nTerms = 25;
@@ -2223,6 +2655,22 @@
       tabBtns.forEach(function (b) { b.classList.toggle("active", b === btn); });
       Object.keys(panels).forEach(function (key) {
         if (panels[key]) panels[key].hidden = (key !== lang);
+      });
+    });
+  });
+
+  // ---------- KaTeX rendering of the formal theorem statements ----------
+  // katex.min.js / auto-render.min.js are loaded with `defer` in <head>, so they are
+  // guaranteed available by the time the `load` event fires (after this inline script).
+  window.addEventListener("load", function () {
+    if (typeof renderMathInElement !== "function") return;
+    document.querySelectorAll(".formal-box").forEach(function (box) {
+      renderMathInElement(box, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+        throwOnError: false
       });
     });
   });
