@@ -32,7 +32,12 @@ Development notes (see verify_pari_omega.gp for the original set):
     select(pred -> ..., v), by contrast, does accept the arrow form and
     is used that way below.
 
-Author: Frederic G. Speyser
+Reference: F. G. Speyser, "Enumeration and Asymptotic Analysis of Strict
+Non-Plane Cactus Graphs over a Finite Set of Cycle Lengths" (in
+preparation for submission to the Journal of Integer Sequences, 2026).
+
+Authors: Frederic G. Speyser & Kseniya Vyatkina
+Copyright (c) 2026 Frederic G. Speyser & Kseniya Vyatkina. All rights reserved.
 Run: gp -q verify_pari_omega_extended.gp < /dev/null
 */
 
